@@ -12,7 +12,7 @@ export class TaskRepository extends Repository<Task> {
     task.title = title
     task.description = description
     task.status = TaskStatus.OPEN
-    await task.save()
+    task.save()
 
     return task
   }
