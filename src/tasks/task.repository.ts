@@ -3,10 +3,11 @@ import { CreateTaskDto } from './dto/create-task.dto'
 import { GetTasksFilterDto } from './dto/get-tasks-filter.dto'
 import { Task } from './task.entity'
 import { TaskStatus } from './task-status.enum'
+import { User } from '../auth/user.entity'
 
 @EntityRepository(Task)
 export class TaskRepository extends Repository<Task> {
-  async getTasks(filterDto: GetTasksFilterDto): Promise<Task[]> {
+  async getTasks (filterDto: GetTasksFilterDto): Promise<Task[]> {
     const { status, search } = filterDto
     const query = this.createQueryBuilder('task')
 
@@ -25,14 +26,17 @@ export class TaskRepository extends Repository<Task> {
     return tasks
   }
 
-  async createTask(createTaskDto: CreateTaskDto): Promise<Task> {
+  async createTask (createTaskDto: CreateTaskDto, user: User): Promise<Task> {
     const { title, description } = createTaskDto
 
     const task = new Task()
     task.title = title
     task.description = description
     task.status = TaskStatus.OPEN
-    task.save()
+    task.user = user // associate task to user entity
+    await task.save()
+
+    delete task.user // delete user information from task object (already saved in DB)
 
     return task
   }
