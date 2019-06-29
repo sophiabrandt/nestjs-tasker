@@ -6,20 +6,21 @@ import { InjectRepository } from '@nestjs/typeorm'
 import { JwtPayload } from './jwt-payload.interface'
 import { UserRepository } from './user.repository'
 import { User } from './user.entity'
+import * as config from 'config'
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
-  constructor (
+  constructor(
     @InjectRepository(UserRepository)
     private userRepository: UserRepository
   ) {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-      secretOrKey: process.env.JWT_SECRET
+      secretOrKey: process.env.JWT_SECRET || config.get('jwt.secret'),
     })
   }
 
-  async validate (payload: JwtPayload): Promise<User> {
+  async validate(payload: JwtPayload): Promise<User> {
     const { username } = payload
     const user = await this.userRepository.findOne({ username })
 
