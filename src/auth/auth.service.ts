@@ -1,9 +1,4 @@
-import {
-  Injectable,
-  NotFoundException,
-  UnauthorizedException,
-  Logger
-} from '@nestjs/common'
+import { Injectable, UnauthorizedException, Logger } from '@nestjs/common'
 import { JwtService } from '@nestjs/jwt'
 import { InjectRepository } from '@nestjs/typeorm'
 import { UserRepository } from './user.repository'
@@ -12,18 +7,18 @@ import { JwtPayload } from './jwt-payload.interface'
 
 @Injectable()
 export class AuthService {
-  private logger = new Logger('AuthService')
-  constructor (
+  // private logger = new Logger('AuthService')
+  constructor(
     @InjectRepository(UserRepository)
     private userRepository: UserRepository,
     private jwtService: JwtService
   ) {}
 
-  async signUp (authCredentialsDto: AuthCredentialsDto): Promise<void> {
+  async signUp(authCredentialsDto: AuthCredentialsDto): Promise<void> {
     return this.userRepository.signUp(authCredentialsDto)
   }
 
-  async signIn (
+  async signIn(
     authCredentialsDto: AuthCredentialsDto
   ): Promise<{ accessToken: string }> {
     const username = await this.userRepository.validateUserPassword(

@@ -1,4 +1,3 @@
-require('dotenv').config()
 import { PassportModule } from '@nestjs/passport'
 import { JwtModule } from '@nestjs/jwt'
 import { Module } from '@nestjs/common'
