@@ -1,5 +1,5 @@
 server:
-  origin: http://nestjs-tasker.s3-website.eu-central-1.amazonaws.com
+  origin: http://nestjs-tasker.website
 
 db:
   synchronize: false

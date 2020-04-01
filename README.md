@@ -27,14 +27,29 @@ This repository serves as a learning repository to chronicle my progress from th
 
 Original code was written by Ariel Weinberger, minor modifications by me (Sophia Brandt).
 
-## Built With
+### Built With
 
 - [NestJS](https://nestjs.com/)
 - [TypeScript](http://www.typescriptlang.org/)
 
 ## Installation
 
+You'll need Docker and docker-compose for the Postgres database. The database runs in a [Docker container](docker-compose.yml).
+
+```bash
+$ git clone git@github.com:sophiabrandt/nestjs-tasker.git && cd nestjs-tasker
+$ docker-compose build
+$ pnpm install # or `npm install`
+```
+
+If you want to use your locally installed Postgres instance, you have to configure the database in the `config` folder.
+
 ## Usage
+
+```bash
+$ docker-compose up -d
+$ pnpm run start # or npm run start
+```
 
 ## License
 
