@@ -1,18 +1,46 @@
+[![MIT License][license-shield]][license-url]
+
 # nestjs-tasker
 
 > a task management tool with NestJS
 
+## Table of Contents
+
+- [About](#about)
+  - [Motivation](#motivation)
+  - [Built With](#built-with)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Contributing](#contributing)
+- [License](#license)
+- [Credits](#credits)
+
+---
+
+## About
+
+**nestjs-tasker** is an example Nest.js back-end API that can manage tasks.
+
 ### Motivation
 
-This repo serves as a learning repository to chronicle my progress from the [Udemy course: **NestJS Zero to Hero**](https://www.udemy.com/nestjs-zero-to-hero/) by Ariel Weinberger.
+This repository serves as a learning repository to chronicle my progress from the [Udemy course: **NestJS Zero to Hero**](https://www.udemy.com/nestjs-zero-to-hero/) by Ariel Weinberger.
 
-## Tech/Frameworks used
+Original code was written by Ariel Weinberger, minor modifications by me (Sophia Brandt).
 
-**Build with**
+## Built With
 
 - [NestJS](https://nestjs.com/)
 - [TypeScript](http://www.typescriptlang.org/)
 
-## Credits & Licence
+## Installation
 
-Copyright © 2019 Ariel Weinberger
+## Usage
+
+## License
+
+[MIT Licence](LICENCE)
+
+## Credits
+
+Copyright © 2019 Ariel Weinberger, Sophia Brandt  
+[Original repository](https://github.com/arielweinberger/nestjs-course-task-management)
