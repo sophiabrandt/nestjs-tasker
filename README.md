@@ -46,10 +46,40 @@ If you want to use your locally installed Postgres instance, you have to configu
 
 ## Usage
 
+1. Start application
+
 ```bash
 $ docker-compose up -d
 $ pnpm run start # or npm run start
 ```
+
+Basic Open API is available under `http://localhost:3000/api`.
+
+2. Register user
+
+Register a new user under `http://localhost:3000/auth/signup`:
+
+```bash
+curl -d '{"username":"janedoe","password":"JaneDoe$333"}' -H "Content-Type: application/json" -X POST http://localhost:3000/auth/signup
+```
+
+3. Sign in and retrieve auth token
+
+```bash
+TOKEN=$(curl -d '{"username":"janedoe","password":"JaneDoe$333"}' -H "Content-Type: application/json" -X POST http://localhost:3000/auth/signin | jq -r '.accessToken')
+```
+
+We use [jq](https://github.com/stedolan/jq) to parse the json response and set the auth token as a bash variable in the command line.
+
+4. Use the `tasks` route
+
+Example:
+
+```bash
+curl -H 'Accept: application/json' -H "Authorization: Bearer ${TOKEN}" http://localhost:3000/tasks
+```
+
+Now you can do CRUD operations on `http://localhost:3000/tasks` when you send the
 
 ## License
 
