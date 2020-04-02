@@ -1,8 +1,9 @@
 import { Test } from '@nestjs/testing'
-import { NotFoundException } from '@nestjs/common'
+import { NotFoundException, InternalServerErrorException } from '@nestjs/common'
 import { TasksService } from './tasks.service'
 import { TaskRepository } from './task.repository'
 import { GetTasksFilterDto } from './dto/get-tasks-filter.dto'
+import { CreateTaskDto } from './dto/create-task.dto'
 import { TaskStatus } from './task-status.enum'
 
 const mockUser = { id: 99, username: 'test user' }
@@ -10,6 +11,7 @@ const mockUser = { id: 99, username: 'test user' }
 const mockTaskRepository = () => ({
   getTasks: jest.fn(),
   findOne: jest.fn(),
+  createTask: jest.fn(),
 })
 
 describe('TasksService', () => {
@@ -58,11 +60,41 @@ describe('TasksService', () => {
       })
     })
 
-    it('throws an error if task is not found', async () => {
+    it('throws an error if task is not found', () => {
       taskRepository.findOne.mockResolvedValue(null)
 
       expect(tasksService.getTaskById(1, mockUser)).rejects.toThrow(
         NotFoundException
+      )
+    })
+  })
+
+  describe('createTask', () => {
+    it('creates a  new task', async () => {
+      expect(taskRepository.createTask).not.toHaveBeenCalled()
+      const newTask = {
+        title: 'New task',
+        description: 'Create a new test task',
+      }
+      const newTaskDto: CreateTaskDto = {
+        title: 'New task',
+        description: 'Create a new test task',
+      }
+      taskRepository.createTask.mockResolvedValue(newTask)
+
+      const result = await tasksService.createTask(newTaskDto, mockUser)
+      expect(result).toEqual(newTask)
+      expect(taskRepository.createTask).toHaveBeenCalledWith(
+        newTaskDto,
+        mockUser
+      )
+    })
+
+    it('should throw an error if title or description is not provided', () => {
+      taskRepository.createTask.mockResolvedValue(null)
+
+      expect(tasksService.createTask('blabla', mockUser)).rejects.toThrow(
+        InternalServerErrorException
       )
     })
   })
