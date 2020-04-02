@@ -12,6 +12,7 @@ const mockTaskRepository = () => ({
   getTasks: jest.fn(),
   findOne: jest.fn(),
   createTask: jest.fn(),
+  delete: jest.fn(),
 })
 
 describe('TasksService', () => {
@@ -90,11 +91,32 @@ describe('TasksService', () => {
       )
     })
 
-    it('should throw an error if title or description is not provided', () => {
+    it('throws an error if title or description is not provided', () => {
       taskRepository.createTask.mockResolvedValue(null)
 
       expect(tasksService.createTask('blabla', mockUser)).rejects.toThrow(
         InternalServerErrorException
+      )
+    })
+  })
+
+  describe('deleteTask', () => {
+    it('calls taskRepository.deleteTask and deletes a task', async () => {
+      expect(taskRepository.delete).not.toHaveBeenCalled()
+      taskRepository.delete.mockResolvedValue({ affected: 1 })
+
+      await tasksService.deleteTask(1, mockUser)
+      expect(taskRepository.delete).toHaveBeenCalledWith({
+        id: 1,
+        userId: mockUser.id,
+      })
+    })
+
+    it('throws an error if the task is not found', () => {
+      taskRepository.delete.mockResolvedValue({ affected: 0 })
+
+      expect(tasksService.deleteTask(1, mockUser)).rejects.toThrow(
+        NotFoundException
       )
     })
   })
