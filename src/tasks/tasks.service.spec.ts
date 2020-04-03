@@ -3,7 +3,6 @@ import { NotFoundException, InternalServerErrorException } from '@nestjs/common'
 import { TasksService } from './tasks.service'
 import { TaskRepository } from './task.repository'
 import { GetTasksFilterDto } from './dto/get-tasks-filter.dto'
-import { CreateTaskDto } from './dto/create-task.dto'
 import { TaskStatus } from './task-status.enum'
 
 const mockUser = { id: 99, username: 'test user' }
@@ -72,30 +71,18 @@ describe('TasksService', () => {
 
   describe('createTask', () => {
     it('creates a  new task', async () => {
+      taskRepository.createTask.mockResolvedValue('some value')
       expect(taskRepository.createTask).not.toHaveBeenCalled()
-      const newTask = {
+      const createTaskDto = {
         title: 'New task',
         description: 'Create a new test task',
       }
-      const newTaskDto: CreateTaskDto = {
-        title: 'New task',
-        description: 'Create a new test task',
-      }
-      taskRepository.createTask.mockResolvedValue(newTask)
 
-      const result = await tasksService.createTask(newTaskDto, mockUser)
-      expect(result).toEqual(newTask)
+      const result = await tasksService.createTask(createTaskDto, mockUser)
+      expect(result).toEqual('some value')
       expect(taskRepository.createTask).toHaveBeenCalledWith(
-        newTaskDto,
+        createTaskDto,
         mockUser
-      )
-    })
-
-    it('throws an error if title or description is not provided', () => {
-      taskRepository.createTask.mockResolvedValue(null)
-
-      expect(tasksService.createTask('blabla', mockUser)).rejects.toThrow(
-        InternalServerErrorException
       )
     })
   })
