@@ -11,6 +11,7 @@
   - [Built With](#built-with)
 - [Installation](#installation)
 - [Usage](#usage)
+- [Tests](#tests)
 - [Contributing](#contributing)
 - [License](#license)
 - [Credits](#credits)
@@ -31,6 +32,7 @@ Original code was written by Ariel Weinberger, minor modifications by me (Sophia
 
 - [NestJS](https://nestjs.com/)
 - [TypeScript](http://www.typescriptlang.org/)
+- [PostgreSQL using Docker](https://www.rockyourcode.com/add-a-postgres-database-with-docker-to-your-project/)
 
 ## Installation
 
@@ -50,7 +52,7 @@ If you want to use your locally installed Postgres instance, you have to configu
 
 ```bash
 $ docker-compose up -d
-$ pnpm run start # or npm run start
+$ pnpm run start:dev # or npm run start:dev
 ```
 
 Basic Open API is available under `http://localhost:3000/api`.
@@ -80,6 +82,12 @@ curl -H 'Accept: application/json' -H "Authorization: Bearer ${TOKEN}" http://lo
 ```
 
 Now you can do CRUD operations on `http://localhost:3000/tasks` when you send the
+
+## Tests
+
+```bash
+pnpm run test  # or npm run test
+```
 
 ## License
 
