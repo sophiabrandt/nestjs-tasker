@@ -1,7 +1,5 @@
 import { Test } from '@nestjs/testing'
-// import { InternalServerErrorException, ConflictException } from '@nestjs/common'
 import { User } from './user.entity'
-// import { UserRepository } from './user.repository'
 import * as bcrypt from 'bcryptjs'
 
 describe('User entitity', () => {
