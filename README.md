@@ -91,7 +91,7 @@ pnpm run test  # or npm run test
 
 ## License
 
-[MIT Licence](LICENCE)
+[MIT Licence](LICENSE)
 
 ## Credits
 
