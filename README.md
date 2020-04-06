@@ -36,6 +36,12 @@ Original code was written by Ariel Weinberger, minor modifications by me (Sophia
 
 ## Installation
 
+Prerequisites:
+
+- Node.js (>=10.13.0)
+- [Docker](https://www.docker.com/)
+- [Docker Compose](https://docs.docker.com/compose/)
+
 You'll need Docker and docker-compose for the Postgres database. The database runs in a [Docker container](docker-compose.yml).
 
 ```bash
@@ -62,13 +68,13 @@ Basic Open API is available under `http://localhost:3000/api`.
 Register a new user under `http://localhost:3000/auth/signup`:
 
 ```bash
-curl -d '{"username":"janedoe","password":"JaneDoe$333"}' -H "Content-Type: application/json" -X POST http://localhost:3000/auth/signup
+$ curl -d '{"username":"janedoe","password":"JaneDoe$333"}' -H "Content-Type: application/json" -X POST http://localhost:3000/auth/signup
 ```
 
-3. Sign in and retrieve auth token
+3. Sign in and retrieve auth token on the route `http://localhost:3000/auth/signin`:
 
 ```bash
-TOKEN=$(curl -d '{"username":"janedoe","password":"JaneDoe$333"}' -H "Content-Type: application/json" -X POST http://localhost:3000/auth/signin | jq -r '.accessToken')
+$ TOKEN=$(curl -d '{"username":"janedoe","password":"JaneDoe$333"}' -H "Content-Type: application/json" -X POST http://localhost:3000/auth/signin | jq -r '.accessToken')
 ```
 
 We use [jq](https://github.com/stedolan/jq) to parse the json response and set the auth token as a bash variable in the command line.
@@ -78,15 +84,15 @@ We use [jq](https://github.com/stedolan/jq) to parse the json response and set t
 Example:
 
 ```bash
-curl -H 'Accept: application/json' -H "Authorization: Bearer ${TOKEN}" http://localhost:3000/tasks
+$ curl -H 'Accept: application/json' -H "Authorization: Bearer ${TOKEN}" http://localhost:3000/tasks
 ```
 
-Now you can do CRUD operations on `http://localhost:3000/tasks` when you send the
+Now you can do CRUD operations on `http://localhost:3000/tasks` when you send the bearer token.
 
 ## Tests
 
 ```bash
-pnpm run test  # or npm run test
+$ pnpm run test  # or npm run test
 ```
 
 ## License
