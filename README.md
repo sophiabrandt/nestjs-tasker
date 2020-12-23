@@ -45,9 +45,9 @@ Prerequisites:
 You'll need Docker and docker-compose for the Postgres database. The database runs in a [Docker container](docker-compose.yml).
 
 ```bash
-$ git clone git@github.com:sophiabrandt/nestjs-tasker.git && cd nestjs-tasker
-$ docker-compose build
-$ pnpm install # or `npm install`
+git clone git@github.com:sophiabrandt/nestjs-tasker.git && cd nestjs-tasker
+docker-compose build
+pnpm install # or `npm install`
 ```
 
 If you want to use your locally installed Postgres instance, you have to configure the database in the `config` folder.
@@ -57,8 +57,8 @@ If you want to use your locally installed Postgres instance, you have to configu
 1. Start application
 
 ```bash
-$ docker-compose up -d
-$ pnpm run start:dev # or npm run start:dev
+docker-compose up -d
+pnpm run start:dev # or npm run start:dev
 ```
 
 Basic Open API is available under `http://localhost:3000/api`.
@@ -68,13 +68,13 @@ Basic Open API is available under `http://localhost:3000/api`.
 Register a new user under `http://localhost:3000/auth/signup`:
 
 ```bash
-$ curl -d '{"username":"janedoe","password":"JaneDoe$333"}' -H "Content-Type: application/json" -X POST http://localhost:3000/auth/signup
+curl -d '{"username":"janedoe","password":"JaneDoe$333"}' -H "Content-Type: application/json" -X POST http://localhost:3000/auth/signup
 ```
 
 3. Sign in and retrieve auth token on the route `http://localhost:3000/auth/signin`:
 
 ```bash
-$ TOKEN=$(curl -d '{"username":"janedoe","password":"JaneDoe$333"}' -H "Content-Type: application/json" -X POST http://localhost:3000/auth/signin | jq -r '.accessToken')
+TOKEN=$(curl -d '{"username":"janedoe","password":"JaneDoe$333"}' -H "Content-Type: application/json" -X POST http://localhost:3000/auth/signin | jq -r '.accessToken')
 ```
 
 We use [jq](https://github.com/stedolan/jq) to parse the json response and set the auth token as a bash variable in the command line.
@@ -84,7 +84,7 @@ We use [jq](https://github.com/stedolan/jq) to parse the json response and set t
 Example:
 
 ```bash
-$ curl -H 'Accept: application/json' -H "Authorization: Bearer ${TOKEN}" http://localhost:3000/tasks
+curl -H 'Accept: application/json' -H "Authorization: Bearer ${TOKEN}" http://localhost:3000/tasks
 ```
 
 Now you can do CRUD operations on `http://localhost:3000/tasks` when you send the bearer token.
@@ -92,7 +92,7 @@ Now you can do CRUD operations on `http://localhost:3000/tasks` when you send th
 ## Tests
 
 ```bash
-$ pnpm run test  # or npm run test
+pnpm run test  # or npm run test
 ```
 
 ## License
