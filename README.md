@@ -56,22 +56,26 @@ If you want to use your locally installed Postgres instance, you have to configu
 
 1. Start application
 
+If you can run [`make`](https://www.gnu.org/software/make/), you might want to use the provided [`Makefile`](Makefile).
+
+The `Makefile` also provides an alternative way to run the Postgres database without docker-compose (docker standalone).
+
 ```bash
 docker-compose up -d
 pnpm run start:dev # or npm run start:dev
 ```
 
-Basic Open API is available under `http://localhost:3000/api`.
+Basic Open API is available under [http://localhost:3000/api](http://localhost:3000/api).
 
 2. Register user
 
-Register a new user under `http://localhost:3000/auth/signup`:
+Register a new user under [http://localhost:3000/auth/signup](http://localhost:3000/auth/signup):
 
 ```bash
 curl -d '{"username":"janedoe","password":"JaneDoe$333"}' -H "Content-Type: application/json" -X POST http://localhost:3000/auth/signup
 ```
 
-3. Sign in and retrieve auth token on the route `http://localhost:3000/auth/signin`:
+3. Sign in and retrieve auth token on the route [http://localhost:3000/auth/signin](http://localhost:3000/auth/signin):
 
 ```bash
 TOKEN=$(curl -d '{"username":"janedoe","password":"JaneDoe$333"}' -H "Content-Type: application/json" -X POST http://localhost:3000/auth/signin | jq -r '.accessToken')
@@ -87,7 +91,7 @@ Example:
 curl -H 'Accept: application/json' -H "Authorization: Bearer ${TOKEN}" http://localhost:3000/tasks
 ```
 
-Now you can do CRUD operations on `http://localhost:3000/tasks` when you send the bearer token.
+Now you can do CRUD operations on [http://localhost:3000/tasks](http://localhost:3000/tasks) when you send the bearer token.
 
 ## Tests
 
